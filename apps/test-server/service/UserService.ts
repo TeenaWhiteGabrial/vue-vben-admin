@@ -1,4 +1,5 @@
 import { Result } from '../utils';
+import db from '../db';
 
 const fakeUserInfo = {
   userId: '1',
@@ -19,7 +20,28 @@ export default class UserService {
     return Result.success(fakeUserInfo);
   }
 
+  // async getUserInfoById() {
+  //   return Result.success(fakeUserInfo);
+  // }
+
   async getUserInfoById() {
-    return Result.success(fakeUserInfo);
+    const collection = db.collection('users');
+
+    const user = await collection.find(
+      // 查询条件
+      {
+        id: '',
+      },
+    );
+    return Result.success(user);
+  }
+
+  async addUser(userInfo) {
+    // console.log('111')
+    // console.log(userInfo);
+    const collection = db.collection('users');
+    const res = await collection.insertOne(userInfo);
+    console.log('res', res);
+    return Result.success('插入成功');
   }
 }

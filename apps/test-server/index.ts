@@ -45,13 +45,13 @@ AppRoutes.forEach((route) => router[route.method](route.path, route.action));
 app.use(cors());
 app.use(
   body({
-    encoding: 'gzip',
+    // encoding: 'gzip',
     multipart: true,
-    formidable: {
-      // uploadDir: path.join(__dirname, '/upload/'), // 设置文件上传目录
-      keepExtensions: true,
-      maxFieldsSize: 20 * 1024 * 1024,
-    },
+    // formidable: {
+    //   // uploadDir: path.join(__dirname, '/upload/'), // 设置文件上传目录
+    //   keepExtensions: true,
+    //   maxFieldsSize: 20 * 1024 * 1024,
+    // },
   }),
 );
 app.use(router.routes());

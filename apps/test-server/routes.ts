@@ -13,6 +13,11 @@ export default [
     method: 'get',
     action: UserController.getUserInfoById,
   },
+  {
+    path: '/addUser',
+    method: 'post',
+    action: UserController.addUser,
+  },
 
   // file
   {
