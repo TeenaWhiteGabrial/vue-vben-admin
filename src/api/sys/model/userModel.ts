@@ -2,37 +2,54 @@
  * @description: Login interface parameters
  */
 export interface LoginParams {
-  username: string;
-  password: string;
+  code: string;
+  redirectUri: string;
 }
 
 export interface RoleInfo {
-  roleName: string;
-  value: string;
+  id: string;
+  name: string;
+  roleCode: '';
 }
 
 /**
  * @description: Login interface return value
  */
 export interface LoginResultModel {
-  userId: string | number;
-  token: string;
-  roles: RoleInfo[];
+  access_token: string;
 }
 
 /**
  * @description: Get user information return value
  */
 export interface GetUserInfoModel {
-  roles: RoleInfo[];
   // 用户id
-  userId: string | number;
+  userId: string;
   // 用户名
-  username: string;
-  // 真实名字
-  realName: string;
+  userName: string;
+  // 显示名称
+  displayName: string;
   // 头像
-  avatar: string;
-  // 介绍
-  desc?: string;
+  avatar?: string;
+}
+
+/** 获取网站基本信息接口返回值 */
+export interface GetSiteInfoModel {
+  /** 网站标题 */
+  name: string;
+  /** 标签页icon */
+  icon: string;
+  /** 管理端LOGO */
+  backlogo: string;
+  /** 管理端描述 */
+  description: string;
+}
+
+/** 获取菜单列表接口返回值 */
+export interface GetMenuInfoModel {
+  resourceName: string;
+  parentId: string;
+  sonList?: GetMenuInfoModel[];
+  extraInfo: string;
+  sort: string;
 }

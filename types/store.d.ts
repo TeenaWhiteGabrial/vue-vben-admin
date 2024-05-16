@@ -1,6 +1,5 @@
 import { ErrorTypeEnum } from '@/enums/exceptionEnum';
 import { MenuModeEnum, MenuTypeEnum } from '@/enums/menuEnum';
-import { RoleInfo } from '@/api/sys/model/userModel';
 
 // Lock screen information
 export interface LockInfo {
@@ -35,14 +34,24 @@ export interface ErrorLogInfo {
   time?: string;
 }
 
+export interface SiteInfo {
+  /** 网站标题 */
+  title: string;
+  /** 网站标签图标 */
+  icon: string;
+  /** 网站LOGO */
+  logo: string;
+}
+
 export interface UserInfo {
-  userId: string | number;
-  username: string;
-  realName: string;
-  avatar: string;
-  desc?: string;
-  homePath?: string;
-  roles: RoleInfo[];
+  /** 用户ID */
+  userId: string;
+  /** 账号名 */
+  userName: string;
+  /** 显示名称 */
+  displayName: string;
+  /** 用户头像 */
+  avatar?: string;
 }
 
 export interface BeforeMiniState {

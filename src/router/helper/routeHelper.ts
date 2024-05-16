@@ -5,6 +5,7 @@ import { getParentLayout, LAYOUT, EXCEPTION_COMPONENT } from '@/router/constant'
 import { cloneDeep, omit } from 'lodash-es';
 import { warn } from '@/utils/log';
 import { createRouter, createWebHashHistory } from 'vue-router';
+import { GetMenuInfoModel } from '@/api/sys/model/userModel';
 
 export type LayoutMapKey = 'LAYOUT';
 const IFRAME = () => import('@/views/sys/iframe/FrameBlank.vue');
@@ -182,4 +183,34 @@ function isMultipleRoute(routeModule: AppRouteModule) {
     }
   }
   return flag;
+}
+
+export function filterMenuRoute(routes: AppRouteRecordRaw[], menus: GetMenuInfoModel[]) {
+  const result: AppRouteRecordRaw[] = cloneDeep(routes);
+  const pathMatch = function (path1: string, path2: string) {
+    const pathA = path1.startsWith('/') ? path1.substring(1) : path1;
+    const pathB = path2.startsWith('/') ? path2.substring(1) : path2;
+    return pathA === pathB;
+  };
+  result.forEach((route) => {
+    if (!menus.some((menu) => pathMatch(menu.extraInfo, route.path))) {
+      route.meta.ignoreRoute = true;
+      route.meta.hideMenu = true;
+    } else {
+      // 有子路由
+      menus.forEach((menu) => {
+        if (pathMatch(menu.extraInfo, route.path)) {
+          // 路由匹配完成，进行子路由匹配
+          route.meta.title = menu.resourceName;
+          if (!menu.sonList || menu.sonList.length === 0) {
+            menu.sonList = [];
+          }
+          if (route.children && route.children.length > 0) {
+            route.children = filterMenuRoute(route.children, menu.sonList);
+          }
+        }
+      });
+    }
+  });
+  return result;
 }

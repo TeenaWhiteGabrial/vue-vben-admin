@@ -149,6 +149,10 @@ export interface GlobConfig {
   urlPrefix?: string;
   // Project abbreviation
   shortName: string;
+  /** login url */
+  loginUrl: string;
+  /** logout url */
+  logoutUrl: string;
 }
 export interface GlobEnvConfig {
   // Site title
@@ -157,6 +161,10 @@ export interface GlobEnvConfig {
   VITE_GLOB_API_URL: string;
   // Service interface url prefix
   VITE_GLOB_API_URL_PREFIX?: string;
-  // Upload url
+  /** Upload url */
   VITE_GLOB_UPLOAD_URL?: string;
+  /** login url */
+  VITE_GLOB_LOGIN_URL: string;
+  /** logout url */
+  VITE_GLOB_LOGOUT_URL: string;
 }
